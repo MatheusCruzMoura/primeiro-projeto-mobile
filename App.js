@@ -1,61 +1,74 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import * as React from 'react';
+import { View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Chip } from 'react-native-elements';
+import { Avatar, Input, Button } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function App() {
+const user = {
+  name: 'Matheus',
+  avatar: 'assets/profile.jpeg'
+}
+
+function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Chip
-        title="Solid Chip"
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Avatar
+        size="xlarge"
+        rounded
+        source={require('./assets/profile.jpeg')}
+        onPress={() => console.log("Works!")}
+        activeOpacity={0.7}
+        containerStyle={{ marginBottom: 60, backgroundColor: '#bbb' }}
       />
 
-      <Chip
-        title="Disabled Chip"
-        disabled
+
+      <Input
+        label='Seu endereço de email'
+        placeholder='exemplo@email.com'
+        leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#999' }}
+        containerStyle={{ marginBottom: 0, width: 300 }}
       />
 
-      <Chip
-        title="Outlined Chip"
-        type="outline"
-      />
-
-      <Chip
-        title="Outlined & Disabled"
-        type="outline"
-        disabled
-      />
-
-      <Chip
-        title="Left Icon Chip"
-        icon={{
-          name: "bluetooth",
-          type: "font-awesome",
-          size: 20,
-          color: 'white',
+      <Input
+        label='Senha'
+        placeholder='Senha'
+        leftIcon={{
+          type: 'font-awesome',
+          name: 'lock',
+          color: '#999'
         }}
+        secureTextEntry={true}
+        containerStyle={{ width: 300 }}
       />
 
-      <Chip
-        title="Right Icon Chip"
-        icon={{
-          name: "close",
-          type: "font-awesome",
-          size: 20,
-          color: "white",
-        }}
-        iconRight
+      <Button
+        title="Login"
+        buttonStyle={{ width: 290, marginBottom: 10 }}
       />
+
+      <Button
+        title="Cadastrar-se"
+        type="outline"
+        buttonStyle={{ width: 290 }}
+      />
+
+
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
