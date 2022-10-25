@@ -4,18 +4,9 @@ import { View, Text } from 'react-native';
 import { Avatar, Input, Button } from "react-native-elements";
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
-function HomeScreen({ navigation }) {
+function CadastroScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Avatar
-        size="xlarge"
-        rounded
-        source={require('../assets/profile.jpeg')}
-        activeOpacity={0.7}
-        containerStyle={{ marginBottom: 60, backgroundColor: '#bbb' }}
-      />
-
-
       <Input
         label='Seu endereço de email'
         placeholder='exemplo@email.com'
@@ -44,7 +35,6 @@ function HomeScreen({ navigation }) {
       <Button
         title="Cadastrar-se"
         type="outline"
-        onPress={() => navigation.navigate('Usuário')}
         buttonStyle={{ width: 290 }}
       />
 
@@ -53,4 +43,4 @@ function HomeScreen({ navigation }) {
   );
 }
 
-export default HomeScreen;
+export default CadastroScreen;
