@@ -8,6 +8,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/homeScreen';
 import ContactsScreen from './screens/contactsScreen';
 import CadastroScreen from './screens/cadastroScrean';
+import CadastroContatoScreen from './screens/cadastroContatoScrean';
+import ContatoEdicaoScreen from './screens/contatoEdicaoScrean';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,12 +38,14 @@ function App() {
                   />
                 }
                 buttonStyle={{ paddingHorizontal: 17, paddingVertical: 15, borderRadius: 200 }}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('Cadastro de Contato')}
               />
           })}
         />
 
         <Stack.Screen name="Usuário" component={CadastroScreen} />
+        <Stack.Screen name="Cadastro de Contato" component={CadastroContatoScreen} />
+        <Stack.Screen name="Contato" component={ContatoEdicaoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
