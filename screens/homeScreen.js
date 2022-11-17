@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 
 import { View, Text } from 'react-native';
 import { Avatar, Input, Button } from "react-native-elements";
-// import Icon from 'react-native-vector-icons/FontAwesome';
+
+
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "../config/firebaseConfig";
 
 function HomeScreen({ navigation }) {
+  
+  const app = initializeApp(firebaseConfig);
+  
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Avatar
