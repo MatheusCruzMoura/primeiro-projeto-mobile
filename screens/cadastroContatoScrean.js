@@ -1,26 +1,30 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { View, Text } from 'react-native';
 import { Avatar, Input, Button } from "react-native-elements";
 
-function inserirDados() {
+import axios from "axios";
 
-    axios.post('http://professornilson.com/testeservico/clientes'
-        , {
+function CadastroContatoScreen({ navigation }) {
 
-            nome: getNome,
-            telefone: getTelefone,
-            cpf: getCpf
+    const [nome, setNome] = useState();
+    const [email, setEmail] = useState();
+    const [telefone, setTelefone] = useState();
+
+    async function inserirDados() {
+        await axios.post('http://professornilson.com/testeservico/clientes', {
+            nome: nome,
+            telefone: telefone,
+            email: email
         }).then(function (response) {
-            console.log(response);
+            navigation.navigate('Contatos')
         }).catch(function (error) {
             console.log(error);
 
         });
 
-}
+    }
 
-function CadastroContatoScreen({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start', marginTop: 50 }}>
             <Input
@@ -28,6 +32,8 @@ function CadastroContatoScreen({ navigation }) {
                 placeholder='Nome do contato'
                 leftIcon={{ type: 'font-awesome', name: 'user', color: '#999' }}
                 containerStyle={{ width: 300 }}
+                onChangeText={(text) => setNome(text)}
+                value={nome}
             />
 
             <Input
@@ -35,6 +41,9 @@ function CadastroContatoScreen({ navigation }) {
                 placeholder='e-mail do contato'
                 leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#999' }}
                 containerStyle={{ width: 300 }}
+                onChangeText={(text) => setEmail(text)}
+                value={email}
+                keyboardType="email-address"
             />
 
             <Input
@@ -42,11 +51,15 @@ function CadastroContatoScreen({ navigation }) {
                 placeholder='(**) *****-****'
                 leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#999' }}
                 containerStyle={{ width: 300 }}
+                onChangeText={(text) => setTelefone(text)}
+                value={telefone}
+                keyboardType="phone-pad"
+                maxLength={15}
             />
 
             <Button
                 title="Salvar"
-                onPress={() => navigation.navigate('Contatos')}
+                onPress={() => inserirDados()}
                 buttonStyle={{ width: 290, marginTop: 10 }}
             />
 

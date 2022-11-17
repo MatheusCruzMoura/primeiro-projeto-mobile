@@ -4,17 +4,6 @@ import { Text, Avatar, ListItem } from 'react-native-elements'
 import axios from 'axios';
 import { ScrollView } from "react-native";
 
-// const data = [
-//     {
-//         nome: 'Amy Farha',
-//         telefone: '(81) 91234-5678'
-//     },
-//     {
-//         nome: 'Chris Jackson',
-//         telefone: '(81) 99876-5432'
-//     }
-// ]
-
 function ContactsScreen({ navigation }) {
 
     const [data, setData] = useState([]);
