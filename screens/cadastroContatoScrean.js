@@ -17,6 +17,7 @@ function CadastroContatoScreen({ navigation }) {
             telefone: telefone,
             email: email
         }).then(function (response) {
+            console.log(response);
             navigation.navigate('Contatos')
         }).catch(function (error) {
             console.log(error);

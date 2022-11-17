@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View } from 'react-native'
-import { Text, Avatar, ListItem } from 'react-native-elements'
+import { View, FlatList } from 'react-native'
+import { Avatar, ListItem } from 'react-native-elements'
 import axios from 'axios';
-import { ScrollView } from "react-native";
 
 function ContactsScreen({ navigation }) {
 
@@ -17,32 +16,35 @@ function ContactsScreen({ navigation }) {
             setData(result.data);
         }
         resgatarDados();
-    }, [])
+    })
+
+    const keyExtractor = (item, index) => index.toString()
+
+    const renderItem = ({ item }) => (
+        <ListItem bottomDivider
+            containerStyle={{ width: 396 }}
+            onPress={() => navigation.navigate('Contato', { id: item.id, nome: item.nome, telefone: item.telefone, email: item.email })}
+        >
+            <Avatar
+                size='medium'
+                rounded
+                source={require('../assets/profile.jpeg')}
+            />
+
+            <ListItem.Content style={{ width: 255, marginLeft: 5, alignItems: 'flex-start' }}>
+                <ListItem.Title>{item.nome}</ListItem.Title>
+                <ListItem.Subtitle>{item.telefone}</ListItem.Subtitle>
+            </ListItem.Content>
+        </ListItem>
+    )
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
-
-            <ScrollView>
-                {
-                    data.map((l, i) => (
-                        <ListItem key={i} bottomDivider
-                            containerStyle={{ width: 396 }}
-                            onPress={() => navigation.navigate('Contato')}
-                        >
-                            <Avatar
-                                size='medium'
-                                rounded
-                                source={require('../assets/profile.jpeg')}
-                            />
-
-                            <View style={{ width: 255, marginLeft: 5, alignItems: 'flex-start' }}>
-                                <Text h4>{l.nome}</Text>
-                                <Text>{l.telefone}</Text>
-                            </View>
-                        </ListItem>
-                    ))
-                }
-            </ScrollView>
+            <FlatList
+                keyExtractor={keyExtractor}
+                data={data}
+                renderItem={renderItem}
+            />
         </View>
     );
 }
