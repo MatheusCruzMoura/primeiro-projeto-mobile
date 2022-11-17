@@ -1,15 +1,31 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import { View, Text } from 'react-native';
 import { Avatar, Input, Button } from "react-native-elements";
 
-
+import { firebaseConfig } from '../config/firebaseConfig';
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../config/firebaseConfig";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 function HomeScreen({ navigation }) {
-  
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const login = () => {
+    signInWithEmailAndPassword(auth, email, senha)
+      .then((userCredential) => {
+        userCredential.user;
+        navigation.navigate('Contatos')
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage)
+      });
+  }
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -27,6 +43,9 @@ function HomeScreen({ navigation }) {
         placeholder='exemplo@email.com'
         leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#999' }}
         containerStyle={{ marginBottom: 0, width: 300 }}
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+        keyboardType="email-address"
       />
 
       <Input
@@ -39,11 +58,13 @@ function HomeScreen({ navigation }) {
         }}
         secureTextEntry={true}
         containerStyle={{ width: 300 }}
+        onChangeText={(text) => setSenha(text)}
+        value={senha}
       />
 
       <Button
         title="Login"
-        onPress={() => navigation.navigate('Contatos')}
+        onPress={login}
         buttonStyle={{ width: 290, marginBottom: 10 }}
       />
 
