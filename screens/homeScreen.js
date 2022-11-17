@@ -6,11 +6,11 @@ import { Avatar, Input, Button } from "react-native-elements";
 
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../config/firebaseConfig";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 function HomeScreen({ navigation }) {
   
-  const app = initializeApp(firebaseConfig);
-  
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Avatar
